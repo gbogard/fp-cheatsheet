@@ -1,50 +1,51 @@
-const fs = require('fs')
-const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const fs = require("fs");
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 
-const appDirectory = fs.realpathSync(process.cwd())
+const appDirectory = fs.realpathSync(process.cwd());
 const paths = {
-  appPublic: path.resolve(appDirectory, 'public'),
-  appBuild: path.resolve(appDirectory, 'build'),
-  appPublic: path.resolve(appDirectory, 'public'),
-  appHtml: path.resolve(appDirectory, 'public/index.html'),
-  appIndexJs: path.resolve(appDirectory, 'src/Index.bs'),
-  appConfig: path.resolve(appDirectory, 'config/'),
-  appSrc: path.resolve(appDirectory, 'src'),
-  appNodeModules: path.resolve(appDirectory, 'node_modules'),
-}
+  appPublic: path.resolve(appDirectory, "public"),
+  appBuild: path.resolve(appDirectory, "build"),
+  appPublic: path.resolve(appDirectory, "public"),
+  appHtml: path.resolve(appDirectory, "public/index.html"),
+  appIndexJs: path.resolve(appDirectory, "src/Index.bs"),
+  appConfig: path.resolve(appDirectory, "config/"),
+  appSrc: path.resolve(appDirectory, "src"),
+  appNodeModules: path.resolve(appDirectory, "node_modules")
+};
 
-const isEnvProduction = process.env.NODE_ENV === 'production'
-const isEnvDevelopment = !isEnvProduction
+const isEnvProduction = process.env.NODE_ENV === "production";
+const isEnvDevelopment = !isEnvProduction;
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 module.exports = {
-  mode: isEnvProduction ? 'production' : 'development',
+  mode: isEnvProduction ? "production" : "development",
   // Stop compilation early in production
   bail: isEnvProduction,
-  devtool: isEnvProduction ? 'source-map' : 'cheap-module-source-map',
+  devtool: isEnvProduction ? "source-map" : "cheap-module-source-map",
   entry: paths.appIndexJs,
   output: {
     // There will be one main bundle, and one file per asynchronous chunk.
     // In development, it does not produce real files.
     filename: isEnvProduction
-      ? 'static/js/[name].[contenthash:8].js'
-      : 'static/js/bundle.js',
+      ? "static/js/[name].[contenthash:8].js"
+      : "static/js/bundle.js",
     // TODO: remove this when upgrading to webpack 5
     futureEmitAssets: true,
     // There are also additional JS chunk files if you use code splitting.
     chunkFilename: isEnvProduction
-      ? 'static/js/[name].[contenthash:8].chunk.js'
-      : 'static/js/[name].chunk.js',
+      ? "static/js/[name].[contenthash:8].chunk.js"
+      : "static/js/[name].chunk.js",
     // The build folder.
     path: isEnvProduction ? paths.appBuild : undefined,
     // Add /* filename */ comments to generated require()s in the output.
     pathinfo: isEnvDevelopment,
-    publicPath: '/',
+    publicPath: "/"
   },
   optimization: {
     minimize: isEnvProduction,
@@ -52,14 +53,14 @@ module.exports = {
     // https://twitter.com/wSokra/status/969633336732905474
     // https://medium.com/webpack/webpack-4-code-splitting-chunk-graph-and-the-splitchunks-optimization-be739a861366
     splitChunks: {
-      chunks: 'all',
+      chunks: "all"
       // name: false,
     },
     // Keep the runtime chunk separated to enable long term caching
     // https://twitter.com/wSokra/status/969679223278505985
     // https://github.com/facebook/create-react-app/issues/5358
     runtimeChunk: {
-      name: entrypoint => `runtime-${entrypoint.name}`,
+      name: entrypoint => `runtime-${entrypoint.name}`
     },
     minimizer: [
       // This is only used in production mode
@@ -71,7 +72,7 @@ module.exports = {
             // into invalid ecma 5 code. This is why the 'compress' and 'output'
             // sections only apply transformations that are ecma 5 safe
             // https://github.com/facebook/create-react-app/pull/4234
-            ecma: 8,
+            ecma: 8
           },
           compress: {
             ecma: 5,
@@ -85,20 +86,20 @@ module.exports = {
             // https://github.com/facebook/create-react-app/issues/5250
             // Pending further investigation:
             // https://github.com/terser-js/terser/issues/120
-            inline: 2,
+            inline: 2
           },
           mangle: {
-            safari10: true,
+            safari10: true
           },
           output: {
             ecma: 5,
             comments: false,
             // Turned on because emoji and regex is not minified properly using default
             // https://github.com/facebook/create-react-app/issues/2488
-            ascii_only: true,
-          },
+            ascii_only: true
+          }
         },
-        sourceMap: true,
+        sourceMap: true
       }),
       // This is only used in production mode
       new OptimizeCSSAssetsPlugin({
@@ -109,10 +110,10 @@ module.exports = {
             inline: false,
             // `annotation: true` appends the sourceMappingURL to the end of
             // the css file, helping the browser find the sourcemap
-            annotation: true,
+            annotation: true
           }
-        },
-      }),
+        }
+      })
     ]
   },
   module: {
@@ -120,55 +121,71 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          isEnvDevelopment && 'style-loader',
+          isEnvDevelopment && "style-loader",
           isEnvProduction && {
-            loader: MiniCssExtractPlugin.loader,
+            loader: MiniCssExtractPlugin.loader
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader",
             options: {
               importLoaders: 1,
-              sourceMap: isEnvProduction,
-            },
-          },
-          ].filter(Boolean)
+              sourceMap: isEnvProduction
+            }
+          }
+        ].filter(Boolean)
       }
     ]
   },
   plugins: [
-    // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin(
       Object.assign(
         {},
         {
           inject: true,
-          template: paths.appHtml,
+          template: paths.appHtml
         },
         isEnvProduction
           ? {
-            minify: {
-              removeComments: true,
-              collapseWhitespace: true,
-              removeRedundantAttributes: true,
-              useShortDoctype: true,
-              removeEmptyAttributes: true,
-              removeStyleLinkTypeAttributes: true,
-              keepClosingSlash: true,
-              minifyJS: true,
-              minifyCSS: true,
-              minifyURLs: true,
-            },
-          }
+              minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeRedundantAttributes: true,
+                useShortDoctype: true,
+                removeEmptyAttributes: true,
+                removeStyleLinkTypeAttributes: true,
+                keepClosingSlash: true,
+                minifyJS: true,
+                minifyCSS: true,
+                minifyURLs: true
+              }
+            }
           : undefined
       )
     ),
     isEnvProduction &&
-    new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: 'static/css/[name].[contenthash:8].css',
-      chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
-    }),
+      new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
+        filename: "static/css/[name].[contenthash:8].css",
+        chunkFilename: "static/css/[name].[contenthash:8].chunk.css"
+      }),
+    isEnvProduction &&
+      new CompressionPlugin({
+        filename: "[path].gz[query]",
+        algorithm: "gzip",
+        test: /\.js$|\.css$|\.html$/,
+        threshold: 10240,
+        minRatio: 0.8
+      }),
+    isEnvProduction &&
+      new CompressionPlugin({
+        filename: "[path].br[query]",
+        algorithm: "brotliCompress",
+        test: /\.(js|css|html|svg)$/,
+        compressionOptions: { level: 11 },
+        minRatio: 0.8,
+        deleteOriginalAssets: false
+      })
   ].filter(Boolean),
   devServer: {
     // Enable gzip compression of generated files.
@@ -183,8 +200,8 @@ module.exports = {
     hot: true,
     // It is important to tell WebpackDevServer to use the same 'root' path
     // as we specified in the config. In development, we always serve from /.
-    publicPath: '/',
+    publicPath: "/",
     overlay: false,
     historyApiFallback: true
   }
-}
+};
