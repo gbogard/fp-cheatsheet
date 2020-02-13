@@ -1,0 +1,1 @@
+[@bs.module "fitty"] external fitty: Dom.element => unit = "default";

@@ -1,0 +1,6 @@
+(Source react)
+(Cfg_str project_name"FP CheatSheet")
+(Cfg_str project_slug fp-cheatsheet)
+(Cfg_str project_description"")
+(Cfg_str author_name"Guillaume Bogard <hey@guillaumebogard.dev>")
+(Cfg_str css_framework None)
