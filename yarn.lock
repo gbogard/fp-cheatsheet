@@ -1232,6 +1232,11 @@ bs-dom-testing-library@^0.5.0:
   dependencies:
     "@testing-library/dom" "^5.6.0"
 
+bs-dynamic-import@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/bs-dynamic-import/-/bs-dynamic-import-0.4.0.tgz#73e72d4ab38d68bd448652392b7d99bd72c1b8c6"
+  integrity sha512-8d9O6A87x8dc82cV7a67azs/p+FhRtP78bwcTzpGifSEfb9Oj66rCrVU5zZE7GVJqSBP+XpsgoaEAqlddtI3/g==
+
 bs-platform@^7.0.1:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-7.1.0.tgz#72b52148b1c4be7f878969e6e2afd1bfab068cdd"
@@ -5995,7 +6000,7 @@ raw-body@2.4.0:
     iconv-lite "0.4.24"
     unpipe "1.0.0"
 
-react-dom@>=16.8.1, react-dom@^16.12.0:
+react-dom@>=16.8.1, react-dom@^16.12.0, react-dom@^16.8.6:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.12.0.tgz#0da4b714b8d13c2038c9396b54a92baea633fe11"
   integrity sha512-LMxFfAGrcS3kETtQaCkTKjMiifahaMySFDn71fZUNpPHZQEzmk/GiAeIT8JSOrHB23fnuCOMruL2a8NYlw+8Gw==
@@ -6021,7 +6026,7 @@ react-syntax-highlighter@^12.2.1:
     prismjs "^1.8.4"
     refractor "^2.4.1"
 
-react@>=16.8.1, react@^16.12.0:
+react@>=16.8.1, react@^16.12.0, react@^16.8.6:
   version "16.12.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.12.0.tgz#0c0a9c6a142429e3614834d5a778e18aa78a0b83"
   integrity sha512-fglqy3k5E+81pA8s+7K0/T3DBCF0ZDOher1elBFzF7O6arXJgzyu/FW+COxFvAWXJoJN9KIZbT2LXlukwphYTA==
@@ -6094,7 +6099,17 @@ realpath-native@^1.1.0:
   dependencies:
     util.promisify "^1.0.0"
 
-reason-react@>=0.7.0:
+reason-loadable@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/reason-loadable/-/reason-loadable-0.6.2.tgz#4c458d05b3709c3f0e1df5d547583c5062b41420"
+  integrity sha512-hD9XQoJB5hWU18oeSsq9L7p5L2bNrcShlMU05CGzEuwq34BqPFkitqtZigR4lPYX2pnw9PV3Y5ElkbCW1mGbcg==
+  dependencies:
+    bs-dynamic-import "^0.4.0"
+    react "^16.8.6"
+    react-dom "^16.8.6"
+    reason-react "^0.7.0"
+
+reason-react@>=0.7.0, reason-react@^0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/reason-react/-/reason-react-0.7.0.tgz#46a975c321e81cd51310d7b1a02418ca7667b0d6"
   integrity sha512-czR/f0lY5iyLCki9gwftOFF5Zs40l7ZSFmpGK/Z6hx2jBVeFDmIiXB8bAQW/cO6IvtuEt97OmsYueiuOYG9XjQ==

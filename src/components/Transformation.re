@@ -23,13 +23,13 @@ let code = Css.(style([margin(`zero), important(padding(`rem(1.)))]));
 
 let renderSymbol = s => <span> s.abstractForm->React.string </span>;
 
-let renderExample = e =>
-  <ReactSyntaxHighlighter.Hljs
-    language=`Scala
-    style=ReactSyntaxHighlighter.Hljs.Style.gruvboxDark
-    className=code>
-    e
-  </ReactSyntaxHighlighter.Hljs>;
+let renderExample = e => {
+  let fallback = <div />;
+
+  <React.Suspense fallback>
+    <LazySyntaxHighlighter.Lazy className=code> e </LazySyntaxHighlighter.Lazy>
+  </React.Suspense>;
+};
 
 [@react.component]
 let make = (~transformation) => {

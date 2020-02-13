@@ -23,7 +23,11 @@
   "suffix": ".bs.js",
   "namespace": true,
   "bs-dependencies": [
-    "bs-css","reason-react", "bs-react-syntax-highlighter"
+    "bs-css",
+    "reason-react",
+    "bs-react-syntax-highlighter",
+    "bs-dynamic-import",
+    "reason-loadable"
   ],
   "bs-dev-dependencies": [
     "@glennsl/bs-jest",
@@ -35,9 +39,5 @@
   "warnings": {
     "error": "+5"
   },
-  "bsc-flags": [
-    "-bs-super-errors",
-    "-bs-no-version-header",
-    "-open Belt"
-  ]
+  "bsc-flags": ["-bs-super-errors", "-bs-no-version-header", "-open Belt"]
 }
