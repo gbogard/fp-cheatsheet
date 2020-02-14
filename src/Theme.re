@@ -2,6 +2,7 @@ let pageBackground = Css.hex("282828");
 let elementBackground = Css.hex("bdae93");
 let titleBackground = Css.hex("504945");
 let listBackground = Css.hex("7c6f64");
+let transformationTitleColor = Css.hex("d79921");
 
 let globalRules = () =>
   Css.(global("html body", [backgroundColor(pageBackground)]));

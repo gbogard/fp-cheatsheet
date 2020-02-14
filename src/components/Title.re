@@ -23,7 +23,7 @@ let container =
     ])
   );
 
-let _of =
+let ofStyle =
   Css.(
     style([
       position(`absolute),
@@ -64,7 +64,7 @@ let make = () => {
   );
 
   <div className=container ref={ReactDOMRe.Ref.domRef(divRef)}>
-    <span className=_of> "of"->React.string </span>
+    <span className=ofStyle> "of"->React.string </span>
     "The Cheat Sheet"->React.string
     <br />
     "Functional transformations"->React.string

@@ -7,10 +7,15 @@ type type_ = {
 let type_ = (abstractForm, concreteForm, explanation) => {
   abstractForm,
   concreteForm,
-  explanation
+  explanation,
 };
 
-type operand = [`type_(type_)]
+type operand = [ | `type_(type_)];
+
+let operandKey = operand =>
+  switch (operand) {
+  | `type_(t) => t.concreteForm ++ t.abstractForm
+  };
 
 type provider =
   | Language;
@@ -20,7 +25,8 @@ type transformation = {
   from: operand,
   with_: list(operand),
   to_: operand,
-  provider: provider,
+  using: option(string),
+  provider,
   example: option(string),
-  details: option(string)
+  details: option(string),
 };
