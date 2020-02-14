@@ -6,7 +6,15 @@ let containerStyle =
       background(Theme.elementBackground),
       borderRadius(`px(4)),
       overflow(`hidden),
-      marginBottom(`rem(1.5)),
+      marginBottom(`rem(2.5)),
+      boxShadow(
+        Shadow.box(
+          ~x=px(5),
+          ~y=px(5),
+          ~blur=px(8),
+          rgba(0, 0, 0, 0.1),
+        ),
+      ),
     ])
   );
 
@@ -17,7 +25,7 @@ let titleStyle =
       margin(`zero),
       padding2(~v=rem(0.5), ~h=rem(0.5)),
       fontFamily(Theme.font(`mukta)),
-      color(Theme.transformationTitleColor)
+      color(Theme.yellow),
     ])
   );
 

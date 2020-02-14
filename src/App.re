@@ -1,23 +1,6 @@
 open Types;
 Theme.globalRules();
 
-let list =
-  Css.(
-    style([
-      background(Theme.listBackground),
-      padding(`px(25)),
-      boxShadow(
-        Shadow.box(
-          ~x=px(18),
-          ~y=px(18),
-          ~blur=px(32),
-          rgba(0, 0, 0, 0.3),
-        ),
-      ),
-      borderRadius(`px(5)),
-    ])
-  );
-
 let filter = (query, item) => {
   query == ""
   || query
@@ -39,7 +22,6 @@ let make = () => {
 
   <MainContainer>
     <Title />
-    <div className=list>
       <Search
         query=searchQuery
         onQueryChange=setSearchQuery
@@ -47,6 +29,5 @@ let make = () => {
         onConcreteChange=setConcrete
       />
       items
-    </div>
   </MainContainer>;
 };
