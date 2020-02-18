@@ -37,7 +37,7 @@ let ballCheckedStyle = Css.(
 );
 
 [@react.component]
-let make = (~checked: bool, ~onChange) => {
+let make = (~checked: bool, ~onChange: bool => unit) => {
   let toggle = () => onChange(!checked);
 
   <div className=Cn.make([containerStyle, containerCheckedStyle->Cn.ifTrue(checked)]) onClick={_ => toggle()}>

@@ -24,9 +24,9 @@ let make = () => {
     <Title />
       <Search
         query=searchQuery
-        onQueryChange=setSearchQuery
+        onQueryChange={value => setSearchQuery(_ => value)}
         concrete
-        onConcreteChange=setConcrete
+        onConcreteChange={value => setConcrete(_ => value)}
       />
       items
   </MainContainer>;
