@@ -1,13 +1,14 @@
-let pageBackground = Css.hex("282828");
+let veryDarkBrown = Css.hex("282828");
 let elementBackground = Css.hex("bdae93");
 let titleBackground = Css.hex("504945");
-let listBackground = Css.hex("7c6f64");
 let yellow = Css.hex("d79921");
 let orange = Css.hex("d65d0e");
+let green = Css.hex("98971a");
+let grey = Css.hex("928374");
 
 let globalRules = () =>
   Css.(
-    global("html body", [backgroundColor(pageBackground), margin(`zero)])
+    global("html body", [backgroundColor(veryDarkBrown), margin(`zero)])
   );
 
 let tabletBreakpoint = 768;

@@ -27,7 +27,8 @@
     "reason-react",
     "bs-react-syntax-highlighter",
     "bs-dynamic-import",
-    "reason-loadable"
+    "reason-loadable",
+    "re-classnames"
   ],
   "bs-dev-dependencies": [
     "@glennsl/bs-jest",

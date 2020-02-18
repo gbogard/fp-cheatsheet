@@ -8,12 +8,7 @@ let containerStyle =
       overflow(`hidden),
       marginBottom(`rem(2.5)),
       boxShadow(
-        Shadow.box(
-          ~x=px(5),
-          ~y=px(5),
-          ~blur=px(8),
-          rgba(0, 0, 0, 0.1),
-        ),
+        Shadow.box(~x=px(5), ~y=px(5), ~blur=px(8), rgba(0, 0, 0, 0.1)),
       ),
     ])
   );
@@ -37,12 +32,17 @@ let operandGroupStyle =
       padding2(~v=`zero, ~h=`rem(1.5)),
       selector(
         "h6",
-        [textAlign(`center), margin2(~h=`zero, ~v=`rem(0.4))],
+        [
+          textAlign(`center),
+          margin2(~h=`zero, ~v=`rem(0.4)),
+          fontFamily(Theme.font(`mukta)),
+          fontSize(`rem(0.75))
+        ],
       ),
     ])
   );
 
-let operandStyle = Css.(style([]));
+let operandStyle = Css.(style([fontFamily("monospace"), fontSize(`rem(1.1)), margin(`zero)]));
 
 let contentStyle = Css.(style([padding2(~v=`rem(1.), ~h=`zero)]));
 
@@ -52,12 +52,12 @@ let codeStyle =
 let renderSymbol = s => <span> s.abstractForm->React.string </span>;
 
 let renderOperand = (concrete, operand) =>
-  <div key={operand->operandKey}>
+  <pre className=operandStyle key={operand->operandKey}>
     {switch (operand, concrete) {
      | (`type_(t), true) => React.string(t.concreteForm)
      | (`type_(t), false) => React.string(t.abstractForm)
      }}
-  </div>;
+  </pre>;
 
 let renderExample = e => {
   let fallback = <div> "Loading example"->React.string </div>;

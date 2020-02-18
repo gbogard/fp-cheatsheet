@@ -6,6 +6,15 @@ let containerStyle =
       padding(`rem(0.5)),
       borderRadius(`px(5)),
       marginBottom(`rem(1.)),
+      alignItems(`center),
+      selector("label", [
+        color(white),
+        textAlign(`center),
+        marginLeft(`rem(1.)),
+        fontFamily(Theme.font(`mukta)),
+        fontSize(`rem(0.75)),
+        lineHeight(`rem(0.75))
+      ])
     ])
   );
 
@@ -28,6 +37,7 @@ let inputStyle =
       borderRadius(`rem(0.5)),
       color(white),
       background(`none),
+      minWidth(`zero)
     ])
   );
 
@@ -42,13 +52,13 @@ let make = (~query, ~onQueryChange, ~concrete, ~onConcreteChange) => {
         placeholder="Search ..."
         onChange={e => e->ReactEvent.Form.target##value->onQueryChange}
       />
-      <label htmlFor="concrete-ch"> "Concrete Types"->React.string </label>
-      <input
-        id="concrete-ch"
-        type_="checkbox"
-        name="concrete"
+      <label>
+        "Concrete"->React.string<br/>
+        "Types"->React.string<br/>
+      </label>
+      <Toggle
         checked=concrete
-        onChange={e => e->ReactEvent.Form.target##checked->onConcreteChange}
+        onChange={onConcreteChange}
       />
     </>;
 
