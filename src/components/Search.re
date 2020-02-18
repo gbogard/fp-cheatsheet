@@ -1,3 +1,5 @@
+open Hooks;
+
 let containerStyle =
   Css.(
     style([
@@ -23,20 +25,46 @@ let containerStyle =
 
 let stickyContainerStyle =
   Css.(
-    style([position(`sticky), top(`zero), backgroundColor(Theme.orange)])
+    {
+      let rules =
+        style([
+          position(`fixed),
+          top(`zero),
+          width(`vw(100.)),
+          boxSizing(`borderBox),
+          borderRadius(`zero),
+          paddingLeft(`px(10)),
+          paddingRight(`px(10)),
+          zIndex(100),
+          Theme.tablet([paddingLeft(`px(100)), paddingRight(`px(100))]),
+          Theme.desktop([paddingLeft(`px(300)), paddingRight(`px(300))]),
+          transform(translateY(`percent(-100.))),
+          transition(~duration=400, "transform")
+        ]);
+
+      [containerStyle, rules]->merge;
+    }
   );
 
-let inputContainerStyle = Css.(style([
-  position(`relative),
-  flexGrow(1.),
-  selector("i", [
-    position(`absolute),
-    top(`rem(0.7)),
-    left(`rem(0.7)),
-    color(white),
-    opacity(0.8)
-  ])
-]));
+let stickyContainerStyleOpen = Css.(style([transform(translateY(`zero))]));
+
+let inputContainerStyle =
+  Css.(
+    style([
+      position(`relative),
+      flexGrow(1.),
+      selector(
+        "i",
+        [
+          position(`absolute),
+          top(`rem(0.7)),
+          left(`rem(0.7)),
+          color(white),
+          opacity(0.8),
+        ],
+      ),
+    ])
+  );
 
 let inputStyle =
   Css.(
@@ -57,6 +85,8 @@ let inputStyle =
 
 [@react.component]
 let make = (~query, ~onQueryChange, ~concrete, ~onConcreteChange) => {
+  let {y} = useScrollPosition();
+
   let content =
     <>
       <div className=inputContainerStyle>
@@ -78,5 +108,22 @@ let make = (~query, ~onQueryChange, ~concrete, ~onConcreteChange) => {
       <Toggle checked=concrete onChange=onConcreteChange />
     </>;
 
-  <> <div className=containerStyle> content </div> </>;
+  let fixedNavbar =
+    ReactDOMRe.createPortal(
+      <>
+        <div
+          className={Cn.make([
+            stickyContainerStyle,
+            stickyContainerStyleOpen->Cn.ifTrue(y >= 600),
+          ])}>
+          content
+        </div>
+      </>,
+      Webapi.Dom.Document.querySelector(
+        "#navbar-container",
+        Webapi.Dom.document,
+      )
+      ->Option.getExn,
+    );
+  <> fixedNavbar <div className=containerStyle> content </div> </>;
 };

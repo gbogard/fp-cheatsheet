@@ -87,4 +87,6 @@ let all = [
   functionApplication,
   leftToRightFunctionComposition,
   rightToLeftFunctionComposition,
+  rightToLeftFunctionComposition,
+  rightToLeftFunctionComposition,
 ];
